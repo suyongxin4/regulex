@@ -5,7 +5,7 @@ JavaScript Regular Expression Parser & Visualizer.
 
 Online : http://jex.im/regulex/
 
-###Features:
+### Features:
 - Written in pure JavaScript. No backend needed.
 - You can embed the graph in you own site through html iframe element.
 - Detailed error message. In most cases it can point out the precise syntax error position.
@@ -29,36 +29,10 @@ var re = /var\s+([a-zA-Z_]\w*);/ ;
 console.log(parse(re.source));
 ```
 
-#### Visualize
+#### Changes
+##### Get group position
 ```javascript
-var parse = require('regulex').parse;
-var visualize = require('regulex').visualize;
-var Raphael = require('regulex').Raphael;
-var re = /var\s+([a-zA-Z_]\w*);/;
-var paper = Raphael('yourSvgContainer',0,0);
-try {
-  visualize(parse(re.source),getRegexFlags(re),paper);
-} catch(e) {
-  if (e instanceof parse.RegexSyntaxError) {
-    logError(re,e);
-  } else throw e;
-}
-
-function logError(re,err) {
-  var msg=["Error:"+err.message,""];
-  if (typeof err.lastIndex==='number') {
-    msg.push(re);
-    msg.push(new Array(err.lastIndex).join('-')+"^");
-  }
-  console.log(msg.join("\n"));
-}
-
-
-function getRegexFlags(re) {
-  var flags='';
-  flags+=re.ignoreCase?'i':'';
-  flags+=re.global?'g':'';
-  flags+=re.multiline?'m':'';
-  return flags;
-}
+var regex = new require('regulex').RegExp("var\\s+([a-zA-Z_]\\w*);");
+var match = regex.exec("var a = 1;", true);
+console.log(match);
 ```

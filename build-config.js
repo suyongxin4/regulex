@@ -4,5 +4,5 @@
     out: 'dest/regulex.js',
     optimize: 'uglify2',
     wrap: false,
-    include: ['libs/almond','regulex']
+    include: ['regulex']
 })

@@ -47,7 +47,7 @@ RegExp.prototype={
   test:function(s) {
     return this.exec(s)!==null;
   },
-  exec:function (s) {
+  exec:function (s,flag) {
     var nfa=this.getNFA(),ret;
     var startIndex=this.global?(this.lastIndex || 0):0,max=s.length;
     for (;startIndex<max;startIndex++) {
@@ -62,7 +62,7 @@ RegExp.prototype={
     groups[0]=s.slice(startIndex,ret.lastIndex+1);
     var stack=ret.stack;
     for (var i=1,l=groups.length;i<l;i++) {
-      groups[i]=getGroupContent(stack,i,s);
+      groups[i]=getGroupContent(stack,i,s,flag);
     }
     this.lastIndex=ret.lastIndex+1;
     groups.index=startIndex;
@@ -161,7 +161,7 @@ function node2NFA(node,from) {
   }
 }
 
-function getGroupContent(stack,num,s) {
+function getGroupContent(stack,num,s,flag) {
   var start,end,match;
   for (var i=0,l=stack.length,item;i<l;i++) {
     item=stack[i];
@@ -175,7 +175,11 @@ function getGroupContent(stack,num,s) {
     }
   }
   if (start===undefined || end===undefined) return;
-  return s.slice(start,end);
+  var content=s.slice(start,end);
+  return flag?{
+    content:s.slice(start,end),
+    index:[start,end]
+  }:content;
 }
 
 var stateGUID=0;
