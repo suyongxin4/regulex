@@ -9,7 +9,7 @@ Start state is always named 'start'
 type NFAConfig = {compact:false,accepts:StateSet,trans:[Transition]}
 type State = String
 type StateSet = [State]
-type Tranisition = {from:StateSet,to:StateSet,charset:Charset,action:Action,assert:Assert}
+type Transition = {from:StateSet,to:StateSet,charset:Charset,action:Action,assert:Assert}
 type Charset = String|[Range]
   Charset is similar to regex charset,supports negation and range but metacharacters
   Examples:

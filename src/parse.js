@@ -634,7 +634,7 @@ var actions=(function _() {
   }
   // [\x30-\x78] first repr as {ranges:['\x30','x']}
   // [\u0000-\u4567] first repr as {ranges:['\0','u']}
-  // If escape sequences are valid then replace range end with corrent char
+  // If escape sequences are valid then replace range end with current char
   // stack[0].chars did not contain 'u' or 'x'
   function charsetRangeEndUnicodeEscape(stack,c,i) {
     var charset=stack[0];
